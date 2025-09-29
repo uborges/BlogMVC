@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Blog.Models.Post>
+
+@{
+    ViewData["Title"] = "Todos os Posts";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+    <p>Veja os posts mais recentes do nosso blog.</p>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        @foreach (var post in Model)
+        {
+            <div class="col-md-8 offset-md-2 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">@post.Titulo</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">@post.Conteudo</p>
+                    </div>
+                    <div class="card-footer text-muted">
+                        Publicado por: <strong>@post.Autor.Nome</strong>
+                        em @post.DataCriacao.ToString("dd/MM/yyyy")
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

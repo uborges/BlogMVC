@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Blog.Models.Post>
+@model IEnumerable<Blog.Models.Post>
 
 @{
     ViewData["Title"] = "Todos os Posts";
@@ -9,24 +9,44 @@
     <p>Veja os posts mais recentes do nosso blog.</p>
 </div>
 
-<div class="container mt-5">
-    <div class="row">
-        @foreach (var post in Model)
+<p>
+    <a asp-action="Create" class="btn btn-primary">Criar Novo Post</a>
+</p>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Autor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataCriacao)
+            </th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
         {
-            <div class="col-md-8 offset-md-2 mb-4">
-                <div class="card shadow-sm">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">@post.Titulo</h5>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">@post.Conteudo</p>
-                    </div>
-                    <div class="card-footer text-muted">
-                        Publicado por: <strong>@post.Autor.Nome</strong>
-                        em @post.DataCriacao.ToString("dd/MM/yyyy")
-                    </div>
-                </div>
-            </div>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Titulo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Autor.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataCriacao)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.PostId" class="btn btn-sm btn-warning">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.PostId" class="btn btn-sm btn-info">Detalhes</a> |
+                    <a asp-action="Delete" asp-route-id="@item.PostId" class="btn btn-sm btn-danger">Excluir</a>
+                </td>
+            </tr>
         }
-    </div>
-</div>
+    </tbody>
+</table>

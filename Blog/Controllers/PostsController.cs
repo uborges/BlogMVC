@@ -11,7 +11,7 @@ namespace Blog.Controllers
     {
         private readonly BlogContext _context;
 
-        // O BlogContext é injetado automaticamente pelo ASP.NET Core
+        // O BlogContext é injetado pelo ASP.NET Core
         public PostsController(BlogContext context)
         {
             _context = context;
@@ -203,7 +203,7 @@ namespace Blog.Controllers
         public async Task<IActionResult> AutoresProlificos(int? anoReferencia, int? limitePosts)
         {
             // === CONSULTA LINQ 3: Filtro principal (WHERE) e de grupo (HAVING) ===
-            // Encontrar autores que publicaram mais de N posts no ano X.
+            // Encontrar autores que publicaram N posts ou mais no ano X.
 
             // Define valores padrão se não forem fornecidos
             int ano = anoReferencia ?? DateTime.Now.Year;
@@ -217,7 +217,7 @@ namespace Blog.Controllers
                     NomeAutor = grupo.Key,
                     ContagemPosts = grupo.Count()
                 })
-                .Where(resultado => resultado.ContagemPosts > limite) // Filtro de grupo (SQL HAVING)
+                .Where(resultado => resultado.ContagemPosts >= limite) // Filtro de grupo (SQL HAVING)
                 .ToListAsync();
 
             // Passa os parâmetros para a View para exibir um título dinâmico

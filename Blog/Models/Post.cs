@@ -13,7 +13,7 @@ namespace Blog.Models
         public string? Titulo { get; set; }
 
         [Required(ErrorMessage = "O campo Conteúdo é obrigatório.")]
-        [Column(TypeName = "ntext")] // Sugerindo ntext para conteúdo maior
+        [Column(TypeName = "ntext")] // ntext para conteúdo maior
         [Display(Name = "Conteúdo")]
         public string? Conteudo { get; set; }
 
